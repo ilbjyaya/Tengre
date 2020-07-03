@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "ChanceDescription";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    var encode = request('ItemCode');
+    $(function () {
+        InitialPage();       
+    });
+    //初始化页面
+    function InitialPage() {
+      
+    } 
+
+    var formatDateTime = function (date) {
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        var second = date.getSeconds();
+        second = second < 10 ? ('0' + second) : second;
+        return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+    };  
+
+    //保存表单
+    function AcceptClick(callback) {
+         var datajson = {
+             DescriptionContent: $("#DescriptionContent").val(),
+             DepartmentName: $("#DepartmentName").val(),
+             CreateUserName: $("#CreateUserName").val(),
+             CreateUserId: $("#CreateUserId").val(),
+             CreateDate: formatDateTime(new Date())     
+            }
+            callback(datajson);
+        dialogClose();  
+    }
+</script>
+<div class="titlePanel">
+    <div class="title-search">
+        <table class="form">
+            <tr>
+                <td class="formTitle">备注内容</td>
+                <td class="formValue">
+                    <input id="DescriptionContent" type="text" class="form-control" />
+                   
+                </td>
+                <td  hidden="hidden"> 
+                    <input id="DepartmentName" type="text" value="@ViewBag.DepartmentName"/>
+                    <input id="CreateUserName" type="text" value="@ViewBag.CreateUserName" />
+                    <input id="CreateUserId" type="text" value="@ViewBag.CreateUserId" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridTable"></table>
+</div>

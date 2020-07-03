@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/aui.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" >
+    <title>客流管理</title>
+    <script src="js/jquery-1.10.2.js"></script>
+  </head>
+  
+  <body>
+    <section class="section" >
+        <header class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn" href="javascript:void(0);" onClick="javascript:history.back(-1);">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">客流管理</div>
+        </header>
+        <div class="aui-content aui-margin-b-15">
+        
+            <div class="aui-Report" >
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="ListTable guestTable" >
+                <tr >
+                   <th width="10%"></th>
+                   <th width="30%" >姓名</th>
+                   <th >联系方式</th>
+                </tr>
+                <tr >
+                   <td width="10%">1</td>
+                   <td >张某</td>
+                   <td >12356987854</td>
+                </tr>
+                <tr >
+                   <td width="10%">2</td>
+                   <td >张某</td>
+                   <td >12356987854</td>
+                </tr>
+                <tr >
+                   <td width="10%">3</td>
+                   <td >张某</td>
+                   <td >12356987854</td>
+                </tr>
+           </table>
+            
+            </div>
+        </div>
+        <!--列表-->
+    <section >
+    <!--section -->
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <a href="index.html" >
+            <i class="aui-iconfont aui-icon-paper"></i>
+            <div class="aui-bar-tab-label">办公</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="Report.html" >
+            <i class="aui-iconfont aui-icon-cert"></i>
+            <div class="aui-bar-tab-label">报表</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <div class="aui-dot"></div>
+            <a href="my.html" >
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+            </a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="script/api.js" ></script>
+	<script type="text/javascript" src="script/aui-tab.js" ></script>
+    <script type="text/javascript" src="script/aui-popup.js" ></script>
+	<script type="text/javascript">
+        var popup = new auiPopup();
+        function showPopup(){
+            popup.show(document.getElementById("Screening"));
+        }
+		//清空input
+		function Reset(){
+			 for(var i=0;i<document.all.length;i++){
+				if(document.all[i].type == "text" || document.all[i].type == "date"||document.all[i].type == "radio")
+				{
+				  document.all[i].value = "";
+				}
+			  }
+		}
+		//Add
+		function Add(){
+			document.getElementById("Add").style.display="block";
+		}
+		//Cancel
+		function Cancel(){
+			document.getElementById("Add").style.display="none";
+		}
+		//Addtr
+		
+		//delete
+		
+    </script>
+  </body>
+</html>

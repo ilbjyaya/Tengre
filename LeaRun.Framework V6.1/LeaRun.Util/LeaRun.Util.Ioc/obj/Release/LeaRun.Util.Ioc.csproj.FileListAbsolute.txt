@@ -1,0 +1,15 @@
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\LeaRun.Util.Ioc.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\LeaRun.Util.Ioc.pdb
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.Unity.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.Unity.xml
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.Unity.Configuration.xml
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.xml
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\obj\Release\LeaRun.Util.Ioc.csproj.CoreCompileInputs.cache
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\obj\Release\LeaRun.Util.Ioc.csproj.CopyComplete
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\obj\Release\LeaRun.Util.Ioc.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Ioc\obj\Release\LeaRun.Util.Ioc.pdb

@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="Content/scripts/jquery/jquery-1.10.2.min.js"></script>
+    <script>
+        
+
+            //登录验证 
+                $.ajax({
+                   // url: "http://localhost:12276/API/CheckLoginJson", 
+                    url: "http://localhost:4064/Login/CheckLogin", 
+                    data: { username:'system',password:'0000'}, 
+                    async: true,
+                    dataType: "json",
+                    success: function (data) {
+                        alert('成功');
+                        $("#txt_register_code").val = data;
+                        if (data.type == 1) {
+                            console.log(data);
+                        } else {
+                            console.log(data);
+                        }
+                    }
+                }); 
+    </script>
+</head>
+<body>
+    <div id="loginform">
+        <fieldset>
+            <legend>登录伙伴</legend>
+            <dl>
+                <dd>
+                    <button id="btnlogin" type="button"><span>登录</span></button>
+                </dd>
+                <dd>
+                    <input id="txt_register_code"  type="text"  placeholder="短信验证码">
+                </dd>
+            </dl>
+        </fieldset>
+    </div>
+
+</body>
+</html>

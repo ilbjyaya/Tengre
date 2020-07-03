@@ -1,0 +1,15 @@
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\LeaRun.Util.Offices.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\LeaRun.Util.Offices.pdb
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\ICSharpCode.SharpZipLib.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\NPOI.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\NPOI.OOXML.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\NPOI.OpenXml4Net.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\NPOI.OpenXmlFormats.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\NPOI.xml
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\NPOI.OOXML.xml
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\bin\Release\NPOI.OpenXml4Net.xml
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\obj\Release\LeaRun.Util.Offices.csprojAssemblyReference.cache
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\obj\Release\LeaRun.Util.Offices.csproj.CoreCompileInputs.cache
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\obj\Release\LeaRun.Util.Offices.csproj.CopyComplete
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\obj\Release\LeaRun.Util.Offices.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Offices\obj\Release\LeaRun.Util.Offices.pdb

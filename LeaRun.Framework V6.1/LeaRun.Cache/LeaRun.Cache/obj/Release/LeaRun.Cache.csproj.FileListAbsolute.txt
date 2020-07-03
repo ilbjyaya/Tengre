@@ -1,0 +1,5 @@
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Cache\LeaRun.Cache\bin\Release\LeaRun.Cache.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Cache\LeaRun.Cache\bin\Release\LeaRun.Cache.pdb
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Cache\LeaRun.Cache\obj\Release\LeaRun.Cache.csproj.CoreCompileInputs.cache
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Cache\LeaRun.Cache\obj\Release\LeaRun.Cache.dll
+E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Cache\LeaRun.Cache\obj\Release\LeaRun.Cache.pdb

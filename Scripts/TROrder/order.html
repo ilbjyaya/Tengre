@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/aui.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" >
+    <link type="text/css" rel="stylesheet" href="css/jquery.growl.css" >
+    <title>订单查询</title>
+    <script src="js/jquery-1.10.2.js"></script>
+     <script src="js/jquery.growl.js"></script>    
+      <script src="js/jquery.cookie.js"></script>
+       <script src="js/ajaxfileupload.js"></script>   
+    
+    
+	<style type="text/css" >
+body{
+     font-family: "Microsoft YaHei" ! important;
+}
+/*灰色遮罩层*/
+.fade{
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 1);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    display:none;
+}
+/*弹出层*/ 
+.succ-pop{
+    width: 100%;
+    height: auto;
+    background: #fff;
+    position: fixed;
+ 
+    top: 0px;
+    
+    z-index: 999;
+    border-radius: 5px;
+    display:none;
+}   
+.succ-pop h3.title{
+    text-align: center;
+    font-size: 22px;
+    color: #ce002c;
+}
+</style>
+  </head>
+  
+  <body>
+    <section class="section" >
+        <header class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn" href="javascript:void(0);" onClick="javascript:history.back(-1);">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">订单查询</div>
+            <div class="aui-pull-right aui-btn" id="Daui-Scree" aui-popup-for="Screening" tapmode>
+                筛选
+            </div>
+        </header>
+        <div class="aui-popup aui-popup-top-right" id="Screening">
+            <div class="aui-popup-arrow"></div>
+            <div class="aui-popup-content">
+                <div class="aui-content aui-margin-b-15">
+                     <ul class="aui-list aui-form-list">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    通用条件
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" id="CommonCondition" placeholder="订单编号，客户姓名，手机，小区名称">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    开始日期
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="date" id="StartDate" placeholder="开始日期">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                     截至日期
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="date" id="EndDate"  placeholder="截至日期">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    区域/门店
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <select id="SellerNameDept" ><option>请选择</option></select>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    销售代表
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <select id="SellerNamePerson" ><option>请选择</option></select>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-header">是否完工</li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <label><input class="aui-radio" type="radio" name="radio" checked="checked" >全部</label>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <label><input class="aui-radio" type="radio" data-text="已完工" name="radio">已完工</label>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <label><input class="aui-radio" type="radio" data-text="未完工"  name="radio">未完工</label>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                                <div class="aui-btn aui-btn-info aui-margin-r-5" onClick="CloseQuery()">取消</div>
+                                <div class="aui-btn aui-btn-danger aui-margin-l-5" onClick="ok()">确认</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--筛选-->
+        
+        <div class="aui-content aui-margin-b-15" id="operateArea">
+            <div class="aui-list-header Dlist-header">
+                
+                <div class="aui-pull-right aui-btn btn-state" onClick="Add()">
+                    新增
+                </div>
+            </div>
+            <div id="listContainer" style="width:100%;  overflow:auto;">
+            	<table cellpadding="0" cellspacing="0" border="0" width="100%" class="ListTable" >
+
+           		</table>
+            </div>
+            
+        </div>
+        <!--列表-->
+        <div class="aui-popup aui-popup-top-right Dpopup" id="Add">
+            <div class="aui-popup-content">
+                <div class="aui-content aui-margin-b-15">
+                    <ul class="aui-list aui-form-list">
+                       <li class="aui-title aui-list-header">新增订单</li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label" >
+                                    客户信息
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" id="CustomerName" placeholder="客户信息">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    联系电话
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" id="ContecterTel"  placeholder="联系电话">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    小区名称
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" id="DistrictAddress" placeholder="小区名称">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    详细地址
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" id="OpAddress" placeholder="详细地址">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    订单金额
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="number" id="Accounts" placeholder="金额">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item" id="ModifyOrderDate">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    订单日期修改
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="date" id="OrderDate" placeholder="订单日期">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input aui-width">
+                                    备注
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <textarea id="Description" placeholder="备注" ></textarea>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-header">是否完工</li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <label><input class="aui-radio" type="radio" value="1" data-text="已完工" name="OrderStatusName">已完工</label>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <label><input class="aui-radio" type="radio" value="0" checked="checked" data-text="未完工" name="OrderStatusName"> 未完工</label>
+                            </div>
+                        </li>
+                        <li class="aui-list-header">
+
+                            <div class=" aui-btn btn-state" id="AddTr" onClick="addRow()">
+                                新增产品
+                            </div>
+                            <div class=" aui-btn btn-state" id="AddMonyTr" onClick="addMony()">
+                                新增回款
+                            </div>
+                            <div class="aui-pull-right aui-btn aui-btn-Cancel aui-margin-l-5" onClick="Cancel()" >取消</div>
+                            <div class="aui-pull-right aui-btn aui-btn-info aui-margin-r-5" onClick="msg()" value="提交" />提交</div>
+                            <div class="clear" ></div>
+                        </li>
+                        
+                   </ul>
+                   <div class="tab" >
+                      <ul class="Tabmenu ordermenu" >                      	
+                        <li >产品列表</li>
+                        <li >回款列表</li>
+                        <li >备注详情</li>
+                        <li >照片列表</li>
+                      </ul>
+                      <div class="tabDiv" >
+                      	
+                          <div class="Block" >
+                              <table cellpadding="0" cellspacing="0" border="0" width="100%" id="AddTable" class="AddTable OrderTable" >
+                                  <tr>
+                                     <th width="30%" style="text-align: left;" >产品名称<span>色号</span></th>
+                                     <th width="20%" style="text-align: left;" >造型<span>位置</span></th>
+                                     <th width="30%" style="text-align: left;" >单价(元)<span>面积（m<sup>2</sup>）</span></th>
+                                     <th width="20%" style="text-align: left;" >金额(元)<span>操作</span></th>
+                                  </tr>                                 
+                               </table>
+                           </div>
+                           <div class="Block" >
+                              <table cellpadding="0" cellspacing="0" border="0" width="100%" id="AddMonyTable" class="AddTable OrderTable" >
+                                  <tr >
+                                     <th width="30%" >回款</th>
+                                     <th width="20%" >回款金额</th>
+                                     <th width="30%" >回款日期</th>
+                                     <th width="20%" >操作</th>
+                                  </tr>                                  
+                               </table>
+                           </div>
+                           <!-- -->
+                           <div class="Block" id="DescriptionList">
+                              
+                           </div>
+                           <!-- -->
+                           <div class="Block" >
+                               <input type="file" id="choose" accept="image/*" multiple>
+                               <ul class="img-list">
+                                   <li><a id="upload">上传图片</a></li>
+                               </ul>
+                               <div class="clear" ></div>
+                               <div class="photo" >
+                                  <span class="tips"></span>
+                                  <div class="pic-list">  </div>
+                               </div>
+                           </div>
+                           <!-- -->
+                           <div class="clear" ></div>
+                       </div>
+                      <!--tabDiv end-->
+                      <div class="clear" ></div>
+                   </div>
+                   
+                   <div class="aui-list-Btn">
+                       <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                            
+                       </div>
+                   </div>
+                   <!-- -->
+                </div>
+            </div>
+        </div>
+        <!--Add-->
+    <section >
+    <!--section -->
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <a href="index.html" >
+            <i class="aui-iconfont aui-icon-paper"></i>
+            <div class="aui-bar-tab-label">办公</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="Report.html" >
+            <i class="aui-iconfont aui-icon-cert"></i>
+            <div class="aui-bar-tab-label">报表</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <div class="aui-dot"></div>
+            <a href="my.html" >
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+            </a>
+        </div>
+    </footer>
+    <div class="fade" ></div>
+<div class="succ-pop">
+    <h3 class="title" onclick="$('.fade').hide();$('.succ-pop').hide();">
+        关闭预览
+    </h3>
+    <img src="" style="width:100%;height: auto; margin: 0 auto;" id="previewimage"/>
+</div>
+<script type="text/javascript" src="script/api.js" ></script>
+	<script type="text/javascript" src="script/aui-tab.js" ></script>
+    <script type="text/javascript" src="script/aui-popup.js" ></script>
+    
+    <script >
+    	var now=new Date();
+var number = now.getYear().toString()+now.getMonth().toString()+now.getDate().toString()+now.getHours().toString()+now.getMinutes().toString()+now.getSeconds().toString();
+document.write("\<script language=\"javascript\" type=\"text/javascript\" src=\"http://123.206.255.74:8089/Scripts/OrderConfig.js?"+number+"\"><\/script\>");
+
+    </script>
+  </body>
+</html>

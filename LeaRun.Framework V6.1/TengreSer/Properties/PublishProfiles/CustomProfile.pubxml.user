@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件
+自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\Job\Tengre\sso</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Dapper.dll">
+      <publishTime>05/30/2016 11:20:22</publishTime>
+    </File>
+    <File Include="bin/Dapper.pdb">
+      <publishTime>05/30/2016 11:20:22</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>05/30/2016 11:26:35</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>05/30/2016 11:26:35</publishTime>
+    </File>
+    <File Include="bin/ICSharpCode.SharpZipLib.dll">
+      <publishTime>05/30/2016 11:27:49</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Busines.dll">
+      <publishTime>08/01/2018 18:35:31</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Busines.pdb">
+      <publishTime>08/01/2018 18:35:31</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Cache.dll">
+      <publishTime>08/01/2018 20:38:54</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Cache.pdb">
+      <publishTime>08/01/2018 20:38:54</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Code.dll">
+      <publishTime>08/01/2018 18:35:27</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Code.pdb">
+      <publishTime>08/01/2018 18:35:27</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Entity.dll">
+      <publishTime>08/01/2018 18:35:29</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Entity.pdb">
+      <publishTime>08/01/2018 18:35:29</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.IService.dll">
+      <publishTime>08/01/2018 18:35:30</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.IService.pdb">
+      <publishTime>08/01/2018 18:35:30</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Mapping.dll">
+      <publishTime>08/01/2018 18:35:30</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Mapping.pdb">
+      <publishTime>08/01/2018 18:35:30</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Service.dll">
+      <publishTime>08/01/2018 18:35:31</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Application.Service.pdb">
+      <publishTime>08/01/2018 18:35:31</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Cache.dll">
+      <publishTime>07/22/2018 14:54:07</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Cache.Factory.dll">
+      <publishTime>07/22/2018 14:54:14</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Cache.Factory.pdb">
+      <publishTime>07/22/2018 14:54:14</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Cache.pdb">
+      <publishTime>07/22/2018 14:54:07</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Cache.Redis.dll">
+      <publishTime>07/22/2018 14:54:12</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Cache.Redis.pdb">
+      <publishTime>07/22/2018 14:54:12</publishTime>
+    </File>
+    <File Include="bin/LeaRun.CodeGenerator.dll">
+      <publishTime>08/01/2018 20:38:53</publishTime>
+    </File>
+    <File Include="bin/LeaRun.CodeGenerator.pdb">
+      <publishTime>08/01/2018 20:38:53</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.Dapper.dll">
+      <publishTime>08/01/2018 20:38:53</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.Dapper.dll.config">
+      <publishTime>05/30/2016 11:29:22</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.Dapper.pdb">
+      <publishTime>08/01/2018 20:38:53</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.dll">
+      <publishTime>08/01/2018 18:35:25</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.EF.dll">
+      <publishTime>08/01/2018 18:35:29</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.EF.pdb">
+      <publishTime>08/01/2018 18:35:29</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.pdb">
+      <publishTime>08/01/2018 18:35:25</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.Repository.dll">
+      <publishTime>08/01/2018 18:35:28</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Data.Repository.pdb">
+      <publishTime>08/01/2018 18:35:28</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.dll">
+      <publishTime>08/01/2018 18:35:24</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Extension.dll">
+      <publishTime>07/22/2018 14:54:07</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Extension.pdb">
+      <publishTime>07/22/2018 14:54:07</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.FlowWork.dll">
+      <publishTime>08/01/2018 18:35:26</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.FlowWork.pdb">
+      <publishTime>08/01/2018 18:35:26</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Ioc.dll">
+      <publishTime>07/22/2018 14:54:09</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Ioc.pdb">
+      <publishTime>07/22/2018 14:54:09</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Log.dll">
+      <publishTime>07/22/2018 14:54:14</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Log.pdb">
+      <publishTime>07/22/2018 14:54:14</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Offices.dll">
+      <publishTime>07/22/2018 14:54:09</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.Offices.pdb">
+      <publishTime>07/22/2018 14:54:09</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.pdb">
+      <publishTime>08/01/2018 18:35:24</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.SignalR.dll">
+      <publishTime>08/01/2018 18:35:27</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.SignalR.pdb">
+      <publishTime>08/01/2018 18:35:27</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.WebControl.dll">
+      <publishTime>08/01/2018 18:35:26</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.WebControl.pdb">
+      <publishTime>08/01/2018 18:35:26</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.WeChat.dll">
+      <publishTime>08/01/2018 18:35:27</publishTime>
+    </File>
+    <File Include="bin/LeaRun.Util.WeChat.pdb">
+      <publishTime>08/01/2018 18:35:27</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>05/30/2016 11:21:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Client.dll">
+      <publishTime>06/08/2016 18:05:12</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>10/16/2017 14:14:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>05/30/2016 11:20:20</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.pdb">
+      <publishTime>05/30/2016 11:20:20</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.Configuration.dll">
+      <publishTime>05/30/2016 11:21:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.dll">
+      <publishTime>05/30/2016 11:21:31</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>05/30/2016 11:28:40</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.dll">
+      <publishTime>05/30/2016 11:20:40</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.Entity.EF6.dll">
+      <publishTime>05/30/2016 11:24:55</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>05/30/2016 11:29:03</publishTime>
+    </File>
+    <File Include="bin/NPOI.dll">
+      <publishTime>05/30/2016 11:27:50</publishTime>
+    </File>
+    <File Include="bin/NPOI.OOXML.dll">
+      <publishTime>05/30/2016 11:27:49</publishTime>
+    </File>
+    <File Include="bin/NPOI.OpenXml4Net.dll">
+      <publishTime>05/30/2016 11:27:49</publishTime>
+    </File>
+    <File Include="bin/NPOI.OpenXmlFormats.dll">
+      <publishTime>05/30/2016 11:27:50</publishTime>
+    </File>
+    <File Include="bin/Oracle.DataAccess.dll">
+      <publishTime>05/30/2016 11:19:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe.config">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.rsp">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe.config">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.rsp">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Win32.Primitives.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.AppContext.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Console.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.FileVersionInfo.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.Process.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Compression.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.DriveInfo.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Pipes.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.AccessControl.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Claims.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Algorithms.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Encoding.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Principal.Windows.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Threading.Thread.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.ValueTuple.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.ReaderWriter.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XmlDocument.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.XDocument.dll">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe.config">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.rsp">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>12/13/2017 22:09:38</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Common.dll">
+      <publishTime>05/30/2016 11:19:18</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Interfaces.dll">
+      <publishTime>05/30/2016 11:19:19</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Redis.dll">
+      <publishTime>05/30/2016 11:19:21</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Text.dll">
+      <publishTime>05/30/2016 11:19:27</publishTime>
+    </File>
+    <File Include="bin/SQLinq.Dapper.dll">
+      <publishTime>05/30/2016 11:22:07</publishTime>
+    </File>
+    <File Include="bin/SQLinq.dll">
+      <publishTime>05/30/2016 11:22:07</publishTime>
+    </File>
+    <File Include="bin/System.Data.SQLite.dll">
+      <publishTime>05/30/2016 11:24:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>07/10/2012 21:51:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/TengreSer.dll">
+      <publishTime>08/01/2018 20:39:01</publishTime>
+    </File>
+    <File Include="bin/TengreSer.pdb">
+      <publishTime>08/01/2018 20:39:01</publishTime>
+    </File>
+    <File Include="tengreser.asmx">
+      <publishTime>08/01/2018 19:06:36</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/01/2018 20:39:03</publishTime>
+    </File>
+    <File Include="XmlConfig/database.config">
+      <publishTime>08/01/2018 19:14:21</publishTime>
+    </File>
+    <File Include="XmlConfig/ioc.config">
+      <publishTime>08/01/2018 19:14:21</publishTime>
+    </File>
+    <File Include="XmlConfig/log4net.config">
+      <publishTime>08/01/2018 19:14:21</publishTime>
+    </File>
+    <File Include="XmlConfig/redis.config">
+      <publishTime>08/01/2018 19:14:21</publishTime>
+    </File>
+    <File Include="XmlConfig/system.config">
+      <publishTime>08/01/2018 19:14:21</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

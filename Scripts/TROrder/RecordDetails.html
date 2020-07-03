@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/aui.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" >
+    <title>客户备案</title>
+    <script src="js/jquery-1.10.2.js"></script>
+    
+  </head>
+  
+  <body>
+    <section class="section" >
+        <header class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn" href="javascript:void(0);" onClick="javascript:history.back(-1);">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">备案编辑</div>
+        </header>
+        <div class="aui-content aui-margin-b-15">
+                    <ul class="aui-list aui-form-list">
+                       <li class="aui-title aui-list-header">编辑</li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    客户信息
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" placeholder="客户信息">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    地址
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" placeholder="地址">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    联系方式
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" placeholder="联系方式">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    微信号
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="text" placeholder="微信号">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    客户类型
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name=""> 设计师</label>
+                                    <label><input class="aui-radio" type="radio" name=""> 个人</label>
+                                    <label><input class="aui-radio" type="radio" name=""> 其他</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    意向基数
+                                </div>
+                                <div class="aui-list-item-input">
+                                   <select ><option>请选择</option><option>A</option><option>B</option><option>C</option></select>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    是否成交
+                                </div>
+                                <div class="aui-list-item-input">
+                                     <input class="aui-radio" type="checkbox" name="radio" checked>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input aui-width">
+                                    备注
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <textarea placeholder="备注">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-header">
+                            
+                        </li>
+                        
+                   </ul>
+                   <table cellpadding="0" cellspacing="0" border="0" width="100%" id="AddTable" class="AddTable" >
+                        <tr >
+                           <th >联系人</th>
+                           <th >客户性质</th>
+                           <th >是否成交</th>
+                        </tr>
+                        <tr >
+                           <td >张某</td>
+                           <td >私人</td>
+                           <td >是</td>
+                        </tr>
+                        
+                   </table>
+                   <div class="aui-list-Btn">
+                       <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                            <input type="submit" class="aui-btn aui-btn-info aui-margin-r-5" onClick="msg()" value="提交" />
+                            <div class="aui-btn aui-btn-Cancel aui-margin-l-5" onClick="Cancel()" >取消</div>
+                       </div>
+                   </div>
+                   <!-- -->
+                </div>
+        <!--列表-->
+    <section >
+    <!--section -->
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <a href="index.html" >
+            <i class="aui-iconfont aui-icon-paper"></i>
+            <div class="aui-bar-tab-label">办公</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="Report.html" >
+            <i class="aui-iconfont aui-icon-cert"></i>
+            <div class="aui-bar-tab-label">报表</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <div class="aui-dot"></div>
+            <a href="my.html" >
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+            </a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="script/api.js" ></script>
+	<script type="text/javascript" src="script/aui-tab.js" ></script>
+    <script type="text/javascript" src="script/aui-popup.js" ></script>
+	<script type="text/javascript">
+        var popup = new auiPopup();
+        function showPopup(){
+            popup.show(document.getElementById("Screening"));
+        }
+		//清空input
+		function Reset(){
+			 for(var i=0;i<document.all.length;i++){
+				if(document.all[i].type == "text" || document.all[i].type == "date"||document.all[i].type == "radio")
+				{
+				  document.all[i].value = "";
+				}
+			  }
+		}
+		//Add
+		function Add(){
+			document.getElementById("Add").style.display="block";
+		}
+		//Cancel
+		function Cancel(){
+			document.getElementById("Add").style.display="none";
+		}
+		//提交
+		function msg(){
+		if (confirm("您确认要提交吗？"))
+	 	    document.newsmessage.htm.submit()
+		}
+    </script>
+  </body>
+</html>

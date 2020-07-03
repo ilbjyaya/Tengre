@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/aui.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" >
+    <title>个人信息</title>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+    	var IsApp = false;
+    	if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener('plusready',plusReady,false);
+}
+function plusReady(){
+	IsApp = true;
+	
+}
+    	$(function()
+    	{
+    		
+    			$("#Account").text("账号："+localStorage.getItem("Account"));    
+	var realname = localStorage.getItem("RealName");
+  $("#RealName").html(realname=""?"未设置":realname);
+    		
+    	})
+    	
+	  </script>
+  </head>
+  
+  <body>
+    <section class="section" >
+        <header class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn" href="javascript:void(0);" onClick="javascript:history.back(-1);">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">个人信息</div>
+        </header>
+        <div class="aui-content aui-margin-b-15">
+            <div class="guest" >
+                <div class="aui-content aui-margin-b-15">
+                    <ul class="aui-list aui-list-in">
+                        <li class="aui-list-item aui-list-item-middle aui-list-item-arrow aui-li">
+                            <div class="aui-list-item-inner aui-topImg">
+                                <img src="images/logo.png" alt="">
+                            </div>
+                            <div class="aui-list-item-inner aui-my">
+                                <div id='RealName' class="aui-list-item-title">&nbsp;</div>
+                                <label id='Account'>账号：&nbsp;</label>
+                            </div>
+                        </li>
+                        <li class="aui-list-header" >密码修改</li>
+                        <li class="aui-list-item aui-list-item-middle aui-list-item-arrow">
+                            <div class="aui-list-item-inner aui-my-width">
+                                <div class="aui-list-item-title">原密码</div>
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <input type="text" placeholder="请输入原密码">
+                            </div>
+                        </li>
+                        <li class="aui-list-item aui-list-item-middle aui-list-item-arrow">
+                            <div class="aui-list-item-inner aui-my-width">
+                                <div class="aui-list-item-title">新密码</div>
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <input type="text" placeholder="请输入新密码">
+                            </div>
+                        </li>
+                        <li class="aui-list-item aui-list-item-middle aui-list-item-arrow">
+                            <div class="aui-list-item-inner aui-my-width">
+                                <div class="aui-list-item-title">新密码</div>
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <input type="text" placeholder="请确认密码">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--列表-->
+    <section >
+    <!--section -->
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="index.html" >
+            <i class="aui-iconfont aui-icon-paper"></i>
+            <div class="aui-bar-tab-label">办公</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="Report.html" >
+            <i class="aui-iconfont aui-icon-cert"></i>
+            <div class="aui-bar-tab-label">报表</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <div class="aui-dot"></div>
+            <a href="my.html" >
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+            </a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="script/api.js" ></script>
+	<script type="text/javascript" src="script/aui-tab.js" ></script>
+    <script type="text/javascript" src="script/aui-popup.js" ></script>
+	<script type="text/javascript">
+        var popup = new auiPopup();
+        function showPopup(){
+            popup.show(document.getElementById("Screening"));
+        }
+		//清空input
+		function Reset(){
+			 for(var i=0;i<document.all.length;i++){
+				if(document.all[i].type == "text" || document.all[i].type == "date"||document.all[i].type == "radio")
+				{
+				  document.all[i].value = "";
+				}
+			  }
+		}
+		//Add
+		function Add(){
+			document.getElementById("Add").style.display="block";
+		}
+		//Cancel
+		function Cancel(){
+			document.getElementById("Add").style.display="none";
+		}
+		//Addtr
+		
+		//delete
+		
+    </script>
+  </body>
+</html>

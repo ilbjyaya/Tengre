@@ -1,0 +1,821 @@
+﻿@{
+    ViewBag.Title = "订单详细";
+    Layout = "~/Views/Shared/_OrderForm.cshtml";
+}
+<script>
+    var keyValue = request('keyValue');
+    var orcdes = [];
+    $(function () {
+        InitialPage();
+        GetOrderEntryGrid();
+        //GetDescriptionGrid();
+        GetTimeline();
+        InitControl();
+    });
+    //初始化页面
+    function InitialPage() {
+        $(".bills").height($(window).height() - 88);
+        //resize重设(表格、树形)宽高
+        $(window).resize(function (e) {
+            window.setTimeout(function () {
+                $('#gridTable').setGridWidth(($('.gridPanel').width()));
+                $(".bills").height($(window).height() - 88);
+            }, 200);
+            e.stopPropagation();
+        });
+    }
+    //初始化控件
+    function InitControl() {
+        //施工状态
+        $("#OrderStatusId").ComboBox({
+            url: "../../SystemManage/DataItemDetail/GetDataItemListJson",
+            param: { EnCode: "Client_OpState" },
+            id: "ItemValue",
+            text: "ItemName",
+            description: "==请选择==",
+            height: "200px"
+        });
+
+        //客户名称
+        $("#CustomerId").ComboBox({
+            url: "../../CustomerManage/Customer/GetListJson",
+            id: "CustomerId",
+            text: "FullName",
+            description: "==请选择==",
+            height: "360px",
+            width: "280px",
+            allowSearch: true
+        });
+        //销售人员
+        $("#SellerId").ComboBoxTree({
+            url: "../../BaseManage/User/GetTreeJson",
+            description: "==请选择==",
+            height: "360px",
+            width: "280px",
+            allowSearch: true
+        });
+        //收款人
+        $("#PayeeUserId").ComboBoxTree({
+            url: "../../BaseManage/User/GetTreeJson",
+            description: "==请选择==",
+            height: "360px",
+            width: "280px",
+            allowSearch: true
+        });
+
+        //施工团队
+        $("#OpGroupId").ComboBox({
+            url: "../../SystemManage/DataItemDetail/GetDataItemListJson?encode=Client_OpGroup",
+            id: "ItemValue",
+            text: "ItemName",
+            description: "==请选择==",
+            height: "360px",
+            width: "280px",
+        });
+
+        //审核人员
+        $("#AuditingUserId").ComboBoxTree({
+            url: "../../BaseManage/User/GetTreeJson",
+            description: "==请选择==",
+            height: "360px",
+            width: "280px",
+            allowSearch: true
+        });
+
+        //收款方式
+        $("#PaymentMode").ComboBox({
+            url: "../../SystemManage/DataItemDetail/GetDataItemListJson",
+            param: { EnCode: "Client_PaymentMode" },
+            id: "ItemValue",
+            text: "ItemName",
+            description: "==请选择==",
+            height: "200px"
+        });
+
+
+        //收款状态
+        $("#PaymentState").ComboBox({
+            url: "../../SystemManage/DataItemDetail/GetDataItemListJson",
+            param: { EnCode: "Client_PaymentState" },
+            id: "ItemValue",
+            text: "ItemName",
+            description: "==请选择==",
+            height: "200px"
+        });
+
+
+        //获取表单
+        if (!!keyValue) {
+            $.SetForm({
+                url: "../../CustomerManage/Order/GetFormJson",
+                param: { keyValue: keyValue },
+                success: function (data) {
+                    //主表
+                    var order = data.order;
+                    $("#form1").SetWebControls(order);
+                    $("#DiscountSum").val(toDecimal(order.DiscountSum));
+                    $("#Accounts").val(toDecimal(order.Accounts));
+                    $("#SaleCost").val(toDecimal(order.SaleCost));
+                    $("#DescriptionContent").val(order.Description);
+                    //明细
+                    var orderEntry = data.orderEntry;
+                    $("#gridTable").find('[role=row]').each(function (i) {
+                        var row = orderEntry[i - 1];
+                        if (row != undefined) {
+                            $(this).find('input[name="OrderEntryId"]').val(row.OrderEntryId);
+                            $(this).find('input[name="ProductName"]').val(row.ProductName);
+                            $(this).find('input[name="ProductCode"]').val(row.ProductCode);
+                            $(this).find('input[name="ProductId"]').val(row.ProductId);
+                            $(this).find('input[name="BrandId"]').val(row.Brand);
+                            $(this).find('input[name="Brand"]').val(row.Brand);
+                            $(this).find('input[name="ColorCodeId"]').val(row.ColorCode);
+                            $(this).find('input[name="ColorCode"]').val(row.ColorCode);
+                            $(this).find('input[name="StyleCodeId"]').val(row.StyleCode);
+                            $(this).find('input[name="StyleCode"]').val(row.StyleCode);
+                            $(this).find('input[name="OpPositionId"]').val(row.OpPosition);
+                            $(this).find('input[name="OpPosition"]').val(row.OpPosition);
+                            $(this).find('input[name="OffRate"]').val(row.OffRate);
+                            $(this).find('input[name="EstimateSize"]').val(row.EstimateSize);
+                            $(this).find('input[name="EstimateAmount"]').val(row.EstimateAmount);
+                            $(this).find('input[name="RealSize"]').val(row.RealSize);
+                            $(this).find('input[name="RealAmount"]').val(row.RealAmount);
+                            //bn $(this).find('input[name="UnitId"]').val(row.UnitId);
+                            $(this).find('input[name="Qty"]').val(toDecimal(row.Qty));
+                            $(this).find('input[name="Price"]').val(toDecimal(row.Price));
+                            $(this).find('input[name="Amount"]').val(toDecimal(row.Amount));
+                            $(this).find('input[name="TaxRate"]').val(row.TaxRate);
+                            $(this).find('input[name="Taxprice"]').val(toDecimal(row.Taxprice));
+                            $(this).find('input[name="Tax"]').val(toDecimal(row.Tax));
+                            $(this).find('input[name="TaxAmount"]').val(toDecimal(row.TaxAmount));
+                            $(this).find('input[name="Description"]').val(row.Description);
+                            $(this).find('input').removeAttr('disabled').attr("isvalid", "yes");
+                            $(this).next().find('input').removeAttr('disabled');
+                        }
+                    });
+                    //合计
+                    var TotalEstimateSize = 0.00, TotalEstimateAmount = 0.00, TotalRealSize = 0.00, TotalRealAmount = 0.00, TotalQty = 0.00, TotalPrice = 0.00, TotalAmount = 0.00, TotalTaxprice = 0.00, TotalTax = 0.00, TotalTaxAmount = 0.00;
+                    $("#gridTable").find("tbody tr").each(function (i) {
+
+                        var Amount = $(this).find('td:eq(18)').find('input').val();
+                        if (Amount != "" && Amount != undefined) {
+                            TotalAmount += Number(Amount);
+                        }
+                        var EstimateSize = $(this).find('td:eq(13)').find('input').val();
+                        if (EstimateSize != "" && EstimateSize != undefined) {
+                            TotalEstimateSize += Number(EstimateSize);
+                        }
+                        var EstimateAmount = $(this).find('td:eq(14)').find('input').val();
+                        if (EstimateAmount != "" && EstimateAmount != undefined) {
+                            TotalEstimateAmount += Number(EstimateAmount);
+                        }
+                        var RealSize = $(this).find('td:eq(15)').find('input').val();
+                        if (RealSize != "" && RealSize != undefined) {
+                            TotalRealSize += Number(RealSize);
+                        }
+                        var RealAmount = $(this).find('td:eq(16)').find('input').val();
+                        if (RealAmount != "" && RealAmount != undefined) {
+                            TotalRealAmount += Number(RealAmount);
+                        }
+                    });
+                    $("#TotalEstimateSize").text(toDecimal(TotalEstimateSize));
+                    $("#TotalEstimateAmount").text(toDecimal(TotalEstimateAmount));
+                    $("#TotalRealSize").text(toDecimal(TotalRealSize));
+                    $("#TotalRealAmount").text(toDecimal(TotalRealAmount));
+                    $("#TotalAmount").text(toDecimal(TotalAmount));
+
+
+                }
+            });
+        }
+
+    }
+    //加载明细
+    function GetOrderEntryGrid() {
+        var $grid = $("#gridTable");
+        $grid.jqGrid({
+            unwritten: false,
+            datatype: "local",
+            height: '100%',
+            autowidth: true,
+            colModel: [
+                { label: '主键', name: 'OrderEntryId', hidden: true },
+                { label: '商品名称<span class="label label label-default" style="margin-left:5px;"></span>', name: "ProductName", width: 260, align: 'left', sortable: false, resizable: false },
+                { label: '商品编号', name: "ProductCode", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '品牌', name: "Brand", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '色号', name: "ColorCode", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '花型', name: "StyleCode", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '施工位置', name: "OpPosition", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '单价', name: 'Price', width: 80, align: 'center', sortable: false, resizable: false },
+                { label: '折扣', name: "OffRate", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '预估面积', name: "EstimateSize", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '预估金额', name: "EstimateAmount", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '实际面积', name: "RealSize", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '实际金额', name: "RealAmount", width: 100, align: 'center', sortable: false, resizable: false },
+                //{ label: '单位', name: "UnitId", width: 100, align: 'center', sortable: false, resizable: false },
+                { label: '数量', name: 'Qty', width: 80, align: 'center', sortable: false, resizable: false, hidden: true },
+
+                { label: '应售金额', name: 'Amount', width: 80, align: 'center', sortable: false, resizable: false },
+
+                { label: '税率(%)', name: 'TaxRate', width: 80, align: 'center', sortable: false, resizable: false, hidden: true },
+                { label: '含税单价', name: 'Taxprice', width: 80, align: 'center', sortable: false, resizable: false, hidden: true },
+                { label: '税额', name: 'Tax', width: 80, align: 'center', sortable: false, resizable: false, hidden: true },
+                { label: '含税金额', name: 'TaxAmount', width: 80, align: 'center', sortable: false, resizable: false, hidden: true },
+                { label: '说明信息', name: 'Description', width: 200, align: 'left', sortable: false, resizable: false }
+            ],
+            pager: false,
+            rownumbers: true,
+            shrinkToFit: false,
+            gridview: true,
+            footerrow: true,
+            gridComplete: function () {
+                //合计
+                $(this).footerData("set", {
+                    "UnitId": "合计：",
+                    "EstimateSize": "<span id='TotalEstimateSize'>0.00</span>",
+                    "EstimateAmount": "<span id='TotalEstimateAmount'>0.00</span>",
+                    "RealSize": "<span id='TotalRealSize'>0.00</span>",
+                    "RealAmount": "<span id='TotalRealAmount'>0.00</span>",
+                    "Amount": "<span id='TotalAmount'>0.00</span>"
+                });
+                $('table.ui-jqgrid-ftable td[aria-describedby="gridTable_UnitId"]').prevUntil().css("border-right-color", "#fff");
+            }
+        });
+        ////表头合并
+        //$grid.jqGrid('setGroupHeaders', {
+        //    useColSpanStyle: true,
+        //    groupHeaders: [
+        //      { startColumnName: 'ProductName', numberOfColumns: 5, titleText: '商品信息' },
+        //        { startColumnName: 'OffRate', numberOfColumns: 5, titleText: '价格信息' }
+        //    ]
+        //});
+        //默认添加13行 空行
+        for (var i = 1; i < 13; i++) {
+            var rowdata = {
+                OrderEntryId: '<input name="OrderEntryId" type="text" />',
+                ProductName: '<div class="product"><input name="ProductName" readonly type="text" class="editable" isvalid="no" checkexpession="NotNull"/><span class="ui-icon-ellipsis"></span></div>',
+                ProductCode: '<input name="ProductCode" type="text" class="editable center disabled" /><input name="ProductId" type="hidden" />',
+
+                BrandId: '<input name="BrandId" type="text" class="editable center"  type="hidden"/>',
+                Brand: '<input name="Brand" type="text"  class="editable center disabled"  />',// '<div class="product"><input name="Brand" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis1"></span></div>', //
+                ColorCodeId: '<input name="ColorCodeId" type="text" class="editable center"  type="hidden"/>',
+                ColorCode: '<div class="product"><input name="ColorCode" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis2"></span></div>', //'<input name="ColorCode" type="text" class="editable center" />',
+                StyleCodeId: '<input name="StyleCodeId" type="text" class="editable center"  type="hidden"/>',
+                StyleCode: '<div class="product"><input name="StyleCode" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis3"></span></div>', //'<input name="StyleCode" type="text" class="editable center" />',
+                OpPositionId: '<input name="OpPositionId" type="text" class="editable center"  type="hidden"/>',
+                OpPosition: '<div class="product"><input name="OpPosition" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis1"></span></div>', // '<input name="OpPosition" type="text" class="editable center" />',
+                Price: '<input name="Price" type="text" class="editable center decimal" isvalid="no" checkexpession="Double" />',
+                OffRate: '<input name="OffRate" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  />',
+                EstimateSize: '<input name="EstimateSize" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  />',
+                EstimateAmount: '<input name="EstimateAmount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double" />',
+                RealSize: '<input name="RealSize" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  />',
+                RealAmount: '<input name="RealAmount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double" />',
+                // UnitId: '<input name="UnitId" type="text" class="editable center" />',
+                //Qty: '<input name="Qty" type="text" class="editable center decimal" isvalid="no" checkexpession="Double" type="hidden"/>',
+
+                Amount: '<input name="Amount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  />',
+                //TaxRate: '<input name="TaxRate" type="text" class="editable center decimal" isvalid="no" checkexpession="Double"  type="hidden"/>',
+                //Taxprice: '<input name="Taxprice" type="text" class="editable center decimal" isvalid="no" checkexpession="Double"  type="hidden"/>',
+                //Tax: '<input name="Tax" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  type="hidden"/>',
+                //TaxAmount: '<input name="TaxAmount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  type="hidden"/>',
+                Description: '<input name="Description" type="text" class="editable" />',
+            }
+            $grid.jqGrid('addRowData', i, rowdata);
+
+        };
+        $grid.find('.decimal').attr('onfocus', 'IsMoney(this.id)');
+        $grid.find('input').attr("disabled", "disabled");
+        $grid.find("tbody tr:eq(1)").find('input').removeAttr('disabled').attr("isvalid", "yes");
+        $grid.find('.disabled').attr("disabled", "disabled");
+
+        //色号
+        $("#ColorCode").ComboBox({
+            url: "../../SystemManage/DataItemDetail/GetDataItemListJson?encode=Client_OpGroup",
+            id: "ItemValue",
+            text: "ItemName",
+            description: "==请选择==",
+            height: "360px",
+            width: "280px",
+        });
+
+
+        //商品名称事件
+        $('input[name="ProductName"]').focus(function () {
+            $('.ui-icon-ellipsis').hide();
+            $(this).next('.ui-icon-ellipsis').show();
+            $(this).Contextmenu();
+        });
+        //选择商品事件
+        $('.ui-icon-ellipsis').click(function () {
+
+            var $ellipsis = $(this);
+            dialogOpen({
+                id: "OptionProduct",
+                title: '选择商品',
+                url: '/CustomerManage/Order/OptionProduct',
+                width: "600px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].AcceptClick(function (data) {
+                        if ($grid.find('[role=row]').find('[data-value=' + data.ProductId + ']').length == 0) {
+                            $ellipsis.parents('[role=row]').find('input[name="ProductName"]').val(data.ProductName);
+                            $ellipsis.parents('[role=row]').find('input[name="ProductCode"]').val(data.ProductCode).attr('data-value', data.ProductId);
+                            $ellipsis.parents('[role=row]').find('input[name="ProductId"]').val(data.ProductId);
+                            $ellipsis.parents('[role=row]').find('input[name="BrandId"]').val(data.BrandId);
+                            $ellipsis.parents('[role=row]').find('input[name="Brand"]').val(data.Brand);
+                            //$ellipsis.parents('[role=row]').find('input[name="ColorCodeId"]').val(data.ColorCodeId);
+                            //$ellipsis.parents('[role=row]').find('input[name="ColorCode"]').val(data.ColorCode);
+                            //$ellipsis.parents('[role=row]').find('input[name="StyleCodeId"]').val(data.StyleCodeId);
+                            //$ellipsis.parents('[role=row]').find('input[name="StyleCode"]').val(data.StyleCode);
+                            //$ellipsis.parents('[role=row]').find('input[name="OpPosition"]').val('');
+                            $ellipsis.parents('[role=row]').find('input[name="OffRate"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="EstimateSize"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="EstimateAmount"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="RealSize"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="RealAmount"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="Qty"]').val('1.00');
+                            $ellipsis.parents('[role=row]').find('input[name="Price"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="Amount"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="TaxRate"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="Taxprice"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="Tax"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input[name="TaxAmount"]').val('0.00');
+                            $ellipsis.parents('[role=row]').find('input').removeAttr('disabled').attr("isvalid", "yes");
+                            $ellipsis.parents('[role=row]').next().find('input').removeAttr('disabled');
+                        } else {
+                            top.dialogTop('商品信息已存在,不能重复添加', 'error');
+                        }
+                    });
+                },
+                btn: ['确认选中', '关闭']
+            });
+        });
+
+
+        //色号事件
+        $('input[name="ColorCode"]').focus(function () {
+            $('.ui-icon-ellipsis2').hide();
+            $(this).next('.ui-icon-ellipsis2').show();
+            $(this).Contextmenu();
+        });
+        //选择色号事件
+        $('.ui-icon-ellipsis2').click(function () {
+            var ItemCode = "Client_ColorCodeOption";
+            var $ellipsis = $(this);
+            var ProductCode = $(this).parents('[role=row]').find('input[name="ProductCode"]').val();
+
+            if (!ProductCode) { dialogMsg('请先选择商品信息！', 0); return; }
+
+            dialogOpen({
+                id: "OptionColor",
+                title: '选择色号',
+                url: '/CustomerManage/Order/OptionColor?ProductCode=' + ProductCode,
+
+                width: "600px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].AcceptClick(function (data) {
+                        $ellipsis.parents('[role=row]').find('input[name="ColorCodeId"]').val(data.ItemValue);
+                        $ellipsis.parents('[role=row]').find('input[name="ColorCode"]').val(data.ItemName);
+                    });
+                },
+                btn: ['确认选中', '关闭']
+            });
+        });
+
+        //花型事件
+        $('input[name="StyleCode"]').focus(function () {
+            $('.ui-icon-ellipsis3').hide();
+            $(this).next('.ui-icon-ellipsis3').show();
+            $(this).Contextmenu();
+        });
+        //选择花型事件
+        $('.ui-icon-ellipsis3').click(function () {
+            var ItemCode = "Client_StyleCodeOption";
+            var $ellipsis = $(this);
+            var ProductCode = $(this).parents('[role=row]').find('input[name="ProductCode"]').val();
+            if (!ProductCode) { dialogMsg('请先选择商品信息！', 0); return; }
+            dialogOpen({
+                id: "OptionStyleCode",
+                title: '选择花型',
+                url: '/CustomerManage/Order/OptionStyle?ProductCode=' + ProductCode,
+                width: "600px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].AcceptClick(function (data) {
+                        $ellipsis.parents('[role=row]').find('input[name="StyleCodeId"]').val(data.ItemValue);
+                        $ellipsis.parents('[role=row]').find('input[name="StyleCode"]').val(data.ItemName);
+                        $ellipsis.parents('[role=row]').find('input[name="Price"]').val(data.Price);
+                    });
+                },
+                btn: ['确认选中', '关闭']
+            });
+        });
+
+        //施工位置
+        $('input[name="OpPosition"]').focus(function () {
+            $('.ui-icon-ellipsis1').hide();
+            $(this).next('.ui-icon-ellipsis1').show();
+            $(this).Contextmenu();
+        });
+        //选择施工位置事件
+        $('.ui-icon-ellipsis1').click(function () {
+            var ItemCode = "Client_OpPositionCodeOption";
+            var $ellipsis = $(this);
+            dialogOpen({
+                id: "OptionPosition",
+                title: '选择施工位置',
+                url: '/CustomerManage/Order/OptionData?ItemCode=' + ItemCode,
+                width: "600px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].AcceptClick(function (data) {
+                        $ellipsis.parents('[role=row]').find('input[name="OpPosition"]').val(data.ItemName);
+                    });
+                },
+                btn: ['确认选中', '关闭']
+            });
+        });
+
+        //价格文本框事件
+        $grid.find('.decimal').click(function () {
+            $(this).select();
+        });
+        //价格文本框换算
+        $grid.find('.decimal').keyup(function () {
+            var _inputName = $(this).attr('name');
+            var $EstimateSize = $(this).parents('[role=row]').find('input[name="EstimateSize"]');                    //预估面积
+            var $EstimateAmount = $(this).parents('[role=row]').find('input[name="EstimateAmount"]');                    //预估金额
+            var $RealSize = $(this).parents('[role=row]').find('input[name="RealSize"]');                    //实际面积
+            var $RealAmount = $(this).parents('[role=row]').find('input[name="RealAmount"]');                    //实际金额
+
+            //var $Qty = $(this).parents('[role=row]').find('input[name="Qty"]');                    //数量
+            var $Qty = $(this).parents('[role=row]').find('input[name="RealSize"]');                    //数量
+            var $Price = $(this).parents('[role=row]').find('input[name="Price"]');                //单价
+            var $Amount = $(this).parents('[role=row]').find('input[name="Amount"]');              //应售金额
+            var $TaxRate = $(this).parents('[role=row]').find('input[name="TaxRate"]');            //税率(%)
+            var $Taxprice = $(this).parents('[role=row]').find('input[name="Taxprice"]');          //含税单价
+            var $Tax = $(this).parents('[role=row]').find('input[name="Tax"]');                    //税额
+            var $TaxAmount = $(this).parents('[role=row]').find('input[name="TaxAmount"]');        //含税金额
+
+            //预估面积*单价=预估金额
+            $EstimateAmount.val(toDecimal($EstimateSize.val() * $Price.val()));
+            //实际面积*单价=实际金额
+            $RealAmount.val(toDecimal($RealSize.val() * $Price.val()));
+
+            //合计
+            var TotalEstimateSize = 0.00, TotalEstimateAmount = 0.00, TotalRealSize = 0.00, TotalRealAmount = 0.00, TotalQty = 0.00, TotalPrice = 0.00, TotalAmount = 0.00, TotalTaxprice = 0.00, TotalTax = 0.00, TotalTaxAmount = 0.00;
+            $grid.find("tbody tr").each(function (i) {
+                var Amount = $(this).find('td:eq(15)').find('input').val();
+                if (Amount != "" && Amount != undefined) {
+                    TotalAmount += Number(Amount);
+                }
+                var EstimateSize = $(this).find('td:eq(10)').find('input').val();
+                if (EstimateSize != "" && EstimateSize != undefined) {
+                    TotalEstimateSize += Number(EstimateSize);
+                }
+                var EstimateAmount = $(this).find('td:eq(11)').find('input').val();
+                if (EstimateAmount != "" && EstimateAmount != undefined) {
+                    TotalEstimateAmount += Number(EstimateAmount);
+                }
+                var RealSize = $(this).find('td:eq(12)').find('input').val();
+                if (RealSize != "" && RealSize != undefined) {
+                    TotalRealSize += Number(RealSize);
+                }
+                var RealAmount = $(this).find('td:eq(13)').find('input').val();
+                if (RealAmount != "" && RealAmount != undefined) {
+                    TotalRealAmount += Number(RealAmount);
+                }
+            });
+            $("#TotalEstimateSize").text(toDecimal(TotalEstimateSize));
+            $("#TotalEstimateAmount").text(toDecimal(TotalEstimateAmount));
+            $("#TotalRealSize").text(toDecimal(TotalRealSize));
+            $("#TotalRealAmount").text(toDecimal(TotalRealAmount));
+            $("#TotalAmount").text(toDecimal(TotalAmount));
+        });
+    }
+
+    //添加一行
+    function addline() {
+        var $grid = $("#gridTable");
+
+        //添加1行 空行
+        var rowdata = {
+            OrderEntryId: '<input name="OrderEntryId" type="text" />',
+            ProductName: '<div class="product"><input name="ProductName" readonly type="text" class="editable" isvalid="no" checkexpession="NotNull"/><span class="ui-icon-ellipsis"></span></div>',
+            ProductCode: '<input name="ProductCode" type="text" class="editable center disabled" /><input name="ProductId" type="hidden" />',
+            BrandId: '<input name="BrandId" type="text" class="editable center"  type="hidden"/>',
+            Brand: '<input name="Brand" type="text"  class="editable center disabled" />',// '<div class="product"><input name="Brand" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis1"></span></div>', //
+            ColorCodeId: '<input name="ColorCodeId" type="text" class="editable center"  type="hidden"/>',
+            ColorCode: '<div class="product"><input name="ColorCode" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis2"></span></div>', //'<input name="ColorCode" type="text" class="editable center" />',
+            StyleCodeId: '<input name="StyleCodeId" type="text" class="editable center"  type="hidden"/>',
+            StyleCode: '<div class="product"><input name="StyleCode" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis3"></span></div>', //'<input name="StyleCode" type="text" class="editable center" />',
+            OpPositionId: '<input name="OpPositionId" type="text" class="editable center"  type="hidden"/>',
+            OpPosition: '<div class="product"><input name="OpPosition" readonly type="text" class="editable" isvalid="no" /><span class="ui-icon-ellipsis1"></span></div>', // '<input name="OpPosition" type="text" class="editable center" />',
+            Price: '<input name="Price" type="text" class="editable center decimal" isvalid="no" checkexpession="Double" />',
+            OffRate: '<input name="OffRate" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  />',
+            EstimateSize: '<input name="EstimateSize" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  />',
+            EstimateAmount: '<input name="EstimateAmount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double" />',
+            RealSize: '<input name="RealSize" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  />',
+            RealAmount: '<input name="RealAmount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double" />',
+            // UnitId: '<input name="UnitId" type="text" class="editable center" />',
+            Qty: '<input name="Qty" type="text" class="editable center decimal" isvalid="no" checkexpession="Double" type="hidden" />',
+
+            Amount: '<input name="Amount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double" />',
+            TaxRate: '<input name="TaxRate" type="text" class="editable center decimal" isvalid="no" checkexpession="Double"  type="hidden"/>',
+            Taxprice: '<input name="Taxprice" type="text" class="editable center decimal" isvalid="no" checkexpession="Double"  type="hidden"/>',
+            Tax: '<input name="Tax" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  type="hidden"/>',
+            TaxAmount: '<input name="TaxAmount" type="text" class="editable center decimal disabled" isvalid="no" checkexpession="Double"  type="hidden"/>',
+            Description: '<input name="Description" type="text" class="editable" />',
+        }
+        $grid.jqGrid('addRowData', $grid.jqGrid("getRowData"), rowdata);
+    }
+
+    //删除最后一行
+    function removeline() {
+        $("#gridTable").setSelection($("#gridTable").jqGrid('getGridParam', 'rowNum'));
+        var selectedId = $("#gridTable").jqGrid("getGridParam", "selrow");
+        if (!selectedId) {
+            alert("请选择要删除的行");
+            return;
+        } else {
+            $("#gridTable").jqGrid("delRowData", selectedId);
+        }
+    }
+    //获取备注列表
+    function GetTimeline() {
+        $.ajax({
+            url: "../../CustomerManage/OrderDescription/GetListJsonTime",
+            data: { objectId: keyValue },
+            type: "get",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var timeline = data.timeline;
+                var rows = data.rows;
+
+                var _html = "";
+                $.each(timeline, function (key) {
+
+                    _html += '<li> ';
+                    _html += '    <span class="label label-warning"><i class="fa fa-circle"></i>' + key + '</span> ';
+                    _html += '    <div class="content"> ';
+                    $.each(rows, function (i) {
+                        var row = rows[i];
+                        // orcdes.push[row];
+                        if (timeline[key] == formatDate(row.CreateDate, 'yyyy-MM-dd')) {
+                            _html += '        <div class="row"> ';
+                            _html += '            <span class="item-flag"><i class="fa fa-file-text-o"></i></span> ';
+                            _html += '            <div class="item-data"> ';
+                            _html += '                <span class="time">' + formatDate(row.CreateDate, 'hh:mm') + '</span> ';
+                            _html += '                <span class="name">' + row.CreateUserName + '<i class="fa fa-caret-right"></i></span> ';
+                            _html += '                <span class="action">' + row.DescriptionContent + '</span> ';
+                            _html += '            </div> ';
+                            _html += '        </div> ';
+                        }
+                    });
+                    _html += '    </div> ';
+                    _html += '</li> ';
+
+                });
+                $("#ul_timeline").html(_html);
+            }
+        });
+    }
+
+    //打印
+    function btn_print() {
+        $(".bills").printTable();
+    }
+    //导出
+    function btn_export() {
+        location.href = "/CustomerManage/Order/ExportOrderEntry?orderId=" + keyValue;
+    }
+    //前单
+    function btn_prev() {
+        $.ajax({
+            url: "../../CustomerManage/Order/GetPrevJson?keyValue=" + keyValue,
+            type: "get",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    var src = top.contentPath + "/CustomerManage/Order/Detail?keyValue=" + data.OrderId;
+                    window.location = src;
+                    $.currentIframe().att('src', 'src');
+                }
+            }
+        });
+    }
+    //后单
+    function btn_next() {
+        $.ajax({
+            url: "../../CustomerManage/Order/GetNextJson?keyValue=" + keyValue,
+            type: "get",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    var src = top.contentPath + "/CustomerManage/Order/Detail?keyValue=" + data.OrderId;
+                    window.location = src;
+                    $.currentIframe().att('src', 'src');
+                }
+            }
+        });
+    }
+</script>
+<div class="bills">
+    <div class="printArea">
+
+        <table class="form" style="width: 100%; margin-bottom: 10px;">
+            <tr>
+                <th class="formTitle">单据编号<font face="宋体">*</font></th>
+                <td class="formValue">
+                    <input id="OrderCode" type="text" readonly value="@ViewBag.OrderCode" class="form-control" isvalid="yes" checkexpession="NotNull" />
+                </td>
+                <th class="formTitle" hidden="hidden">单据日期<font face="宋体">*</font></th>
+                <td class="formValue" hidden="hidden">
+                    <input id="OrderDate" type="text" value="@LeaRun.Util.Time.GetToday()" class="form-control input-wdatepicker" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" isvalid="yes" checkexpession="NotNull" hidden="hidden" />
+                </td>
+                <th class="formTitle">销售人员<font face="宋体">*</font></th>
+                <td class="formValue">
+                    <div id="SellerId" type="selectTree" class="ui-select" isvalid="yes" checkexpession="NotNull"></div>
+                </td>
+                <th class="formTitle" style="width: 60px;">客户名称<font face="宋体">*</font></th>
+                <td class="formValue">
+                    <div id="CustomerId" type="select" class="ui-select" isvalid="no" checkexpession="NotNull"></div>
+                </td>
+                <th class="formTitle" style="width: 60px;">首付订金</th>
+                <td class="formValue">
+                    <input id="Subscription" type="text" class="form-control" value="0.00" isvalid="no" checkexpession="Double" />
+                </td>
+                <th class="formTitle">联系人</th>
+                <td class="formValue">
+                    <input id="ContecterId" type="text" class="form-control" />
+                </td>
+                <th class="formTitle">联系电话</th>
+                <td class="formValue">
+                    <input id="ContecterTel" type="text" class="form-control" />
+                </td>
+                <th class="formTitle">联系手机</th>
+                <td class="formValue">
+                    <input id="ContecterCellPhone" type="text" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">收款人</th>
+                <td class="formValue">
+                    <div id="PayeeUserId" type="selectTree" class="ui-select" isvalid="yes"></div>
+                </td>
+
+                <th class="formTitle">收款方式<font face="宋体"></font></th>
+                <td class="formValue">
+                    <div id="PaymentMode" type="select" class="ui-select" isvalid="yes"></div>
+                </td>
+                <th class="formTitle">销售渠道</th>
+                <td class="formValue">
+                    <input id="DistributionChannelId" type="text" class="form-control" />
+                </td>
+                <th class="formTitle">订单来源</th>
+                <td class="formValue">
+                    <input id="OrderSourceId" type="text" class="form-control" />
+                </td>
+                @*<th class="formTitle">订单状态</th>
+                    <td class="formValue">
+                        <input id="OrderStatusId" type="text" class="form-control" />
+                    </td>*@
+                <th class="formTitle">施工状态</th>
+                <td class="formValue">
+                    <div id="OrderStatusId" type="select" class="ui-select" isvalid="no" checkexpession="NotNull">
+                    </div>
+                </td>
+                <th class="formTitle">施工团队</th>
+                <td class="formValue">
+                    <div id="OpGroupId" type="select" class="ui-select" isvalid="no"></div>
+                </td>
+                <th class="formTitle">是否接单<font face="宋体"></font></th>
+                <td class="formValue">
+                    <div class="checkbox">
+                        <label>
+                            <input id="OpFlg" type="checkbox" checked="checked" />
+                            是
+                        </label>
+                    </div>
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <th class="formTitle">预计施工<font face="宋体">*</font></th>
+                <td class="formValue">
+                    <input id="OpDateEstimate" type="text" value="@LeaRun.Util.Time.GetToday()" class="form-control input-wdatepicker" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" isvalid="yes" checkexpession="NotNull" />
+                </td>
+
+                <th class="formTitle">施工地址</th>
+                <td class="formValue" colspan="3">
+                    <input id="OpAddress" type="text" class="form-control" />
+                </td>
+
+                <th class="formTitle">主单号码</th>
+                <td class="formValue">
+                    <input id="MainOrderCode" type="text" class="form-control" />
+                </td>
+
+                <th class="formTitle">订单类型</th>
+                <td class="formValue">
+                    <input id="OrderTypeId" type="text" class="form-control" />
+                </td>
+
+                <th class="formTitle">追踪人</th>
+                <td class="formValue">
+                    <input id="TraceUserId" type="text" class="form-control" />
+                </td>
+                <th class="formTitle">合伙人</th>
+                <td class="formValue">
+                    <input id="PartnerId" type="text" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <th class="formTitle">佣金领用人</th>
+                <td class="formValue">
+                    <input id="CommissionName" type="text" class="form-control" />
+                </td>
+                <th class="formTitle">领用人电话</th>
+                <td class="formValue">
+                    <input id="CommissionerTel" type="text" class="form-control" />
+                </td>
+
+                <th class="formTitle">佣金描述</th>
+                <td class="formValue" colspan="3">
+                    <input id="CommissionerDescription" type="text" class="form-control" />
+                </td>
+
+                <th class="formTitle">待确认时间</th>
+                <td class="formValue">
+                    <input id="ConfirmTime" type="text" class="form-control" />
+                </td>
+
+                <th class="formTitle">销售额</th>
+                <td class="formValue">
+                    <input id="SaleAccounts" type="text" class="form-control" value="0.00" isvalid="no" checkexpession="Double" />
+                </td>
+
+                <th class="formTitle">追加款项 </th>
+                <td class="formValue">
+                    <input id="AddAccounts" type="text" class="form-control" value="0.00" isvalid="no" checkexpession="Double" />
+                </td>
+
+            </tr>
+            <tr>
+
+                <th class="formTitle">摘要信息</th>
+                <td class="formValue" colspan="7">
+                    <input id="AbstractInfo" type="text" class="form-control" />
+                </td>
+                <th class="formTitle">收款状态</th>
+                <td class="formValue">
+                    <div id="PaymentState" type="select" class="ui-select" isvalid="no" checkexpession="NotNull"></div>
+                </td>
+
+                <th class="formTitle">审核人员<font face="宋体"></font></th>
+                <td class="formValue">
+                    <div id="AuditingUserId" type="selectTree" class="ui-select" isvalid="no"></div>
+                </td>
+            </tr>
+
+        </table>
+
+
+    </div>
+    <div class="printArea">
+        <table class="form">
+            <tr>
+                <td colspan="2" align="right">
+                    <div class="gridPanel" style=" height:60%">
+                        <table id="gridTable"></table>
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+
+        <div style="overflow: auto; height: 380px">
+            <div class="timeline">
+                <div class="line"></div>
+                <ul id="ul_timeline"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bottomField">
+    <div class="btn-group">
+        <a id="lr-print" class="btn btn-default" onclick="btn_print()"><i class="fa fa-print"></i>&nbsp;打印</a>
+        <a id="lr-export" class="btn btn-default" onclick="btn_export()"><i class="fa fa-sign-out"></i>&nbsp;导出</a>
+    </div>
+    <div class="btn-group">
+        <a id="lr-prev" class="btn btn-default" onclick="btn_prev()"><i class="fa fa-backward"></i>&nbsp;前单</a>
+        <a id="lr-next" class="btn btn-default" onclick="btn_next()"><i class="fa fa-forward"></i>&nbsp;后单</a>
+    </div>
+</div>

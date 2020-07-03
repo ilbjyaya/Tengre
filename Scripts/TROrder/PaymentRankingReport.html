@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/aui.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" >
+    <title>回款排行报表</title>
+    <script type="text/javascript" src="js/jquery-1.10.2.js" ></script>
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+		 // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+					title : {
+						text: '',
+						subtext: ''
+					},
+					tooltip : {
+						trigger: 'axis'
+					},
+					legend: {
+						data:['蒸发量','降水量']
+					},
+					//toolbox: {
+//						show : true,
+//						feature : {
+//							mark : {show: true},
+//							dataView : {show: true, readOnly: false},
+//							magicType : {show: true, type: ['line', 'bar']},
+//							restore : {show: true},
+//							saveAsImage : {show: true}
+//						}
+//					},
+					calculable : true,
+					xAxis : [
+						{
+							type : 'category',
+							data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+						}
+					],
+					yAxis : [
+						{
+							type : 'value'
+						}
+					],
+					series : [
+						{
+							name:'蒸发量',
+							type:'bar',
+							data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+							markPoint : {
+								data : [
+									{type : 'max', name: '最大值'},
+									{type : 'min', name: '最小值'}
+								]
+							},
+							markLine : {
+								data : [
+									{type : 'average', name: '平均值'}
+								]
+							}
+						},
+						{
+							name:'降水量',
+							type:'bar',
+							data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+							markPoint : {
+								data : [
+									{name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+									{name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+								]
+							},
+							markLine : {
+								data : [
+									{type : 'average', name : '平均值'}
+								]
+							}
+						}
+					]
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+	</script>
+  </head>
+  
+  <body>
+    <section class="section" >
+        <header class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn" href="javascript:void(0);" onClick="javascript:history.back(-1);">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">回款排行报表</div>
+            <div class="aui-pull-right aui-btn" id="Daui-Scree" aui-popup-for="Screening" tapmode>
+                筛选
+            </div>
+        </header>
+        <div class="aui-popup aui-popup-top-right" id="Screening">
+            <div class="aui-popup-arrow"></div>
+            <div class="aui-popup-content">
+                <div class="aui-content aui-margin-b-15">
+                     <ul class="aui-list aui-form-list">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name="Month" checked> 本年</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name="Month"> 本季</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name="Month"> 本月</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name="Month"> 本周</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name="Month"> 上季</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name="Month" > 上月</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-input">
+                                    <label><input class="aui-radio" type="radio" name="Month" > 上周</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label">
+                                    <label><input class="aui-radio" type="radio" name="ChooseMonth" > </label>
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="month" placeholder="开始月份">
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="month" placeholder="结束月份">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item" >
+                            <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                                <div class="aui-btn aui-btn-info aui-margin-r-5" onClick="Reset()">重置</div>
+                                <div class="aui-btn aui-btn-danger aui-margin-l-5" onClick="ok()">确认</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--筛选-->
+        <div class="aui-content aui-margin-b-15">
+            <div class="aui-Childtitle">
+                销售排行
+            </div>
+            <div class="aui-Report" >
+               <div id="main" style="height:400px;width:100%;"></div>
+            </div>
+        </div>
+        <!--列表-->
+    <section >
+    <!--section -->
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="index.html" >
+            <i class="aui-iconfont aui-icon-paper"></i>
+            <div class="aui-bar-tab-label">办公</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <a href="Report.html" >
+            <i class="aui-iconfont aui-icon-cert"></i>
+            <div class="aui-bar-tab-label">报表</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <div class="aui-dot"></div>
+            <a href="my.html" >
+            <i class="aui-iconfont aui-icon-my"></i>
+            <div class="aui-bar-tab-label">我的</div>
+            </a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="script/api.js" ></script>
+	<script type="text/javascript" src="script/aui-tab.js" ></script>
+    <script type="text/javascript" src="script/aui-popup.js" ></script>
+	<script type="text/javascript">
+        var popup = new auiPopup();
+        function showPopup(){
+            popup.show(document.getElementById("Screening"));
+        }
+		//清空input
+		function Reset(){
+			 for(var i=0;i<document.all.length;i++){
+				if(document.all[i].type == "text" || document.all[i].type == "date"||document.all[i].type == "radio")
+				{
+				  document.all[i].value = "";
+				}
+			  }
+		}
+		//ok
+		function ok() {
+            document.getElementById("Screening").style.display="none";
+			$(".aui-mask").removeClass("aui-mask-in");
+			$("#Daui-Scree").text("筛选");
+        }
+		
+    </script>
+  </body>
+</html>

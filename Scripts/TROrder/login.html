@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/aui.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" >
+     <link type="text/css" rel="stylesheet" href="css/jquery.growl.css" >
+    <title>登录</title>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery.growl.js"></script> 
+    <script src="js/jquery.cookie.js"></script>
+   
+    <script >
+    	var now=new Date();
+var number = now.getYear().toString()+now.getMonth().toString()+now.getDate().toString()+now.getHours().toString()+now.getMinutes().toString()+now.getSeconds().toString();
+document.write("\<script language=\"javascript\" type=\"text/javascript\" src=\"http://123.206.255.74:8089/Scripts/LoginApp.js?"+number+"\"><\/script\>");
+
+    </script>
+  </head>
+  
+  <body>
+    <section class="section" >
+        <div class="aui-content aui-margin-b-15 aui-login">
+            <div class="logo" ><img src="images/logo.png" alt="" ></div>
+            <ul class="aui-list aui-list-in aui-login-ui" >
+               <li class="aui-list-item aui-list-item-middle" >
+                  <div class="aui-list-item-label-icon" ><i class="aui-iconfont aui-icon-my" ></i></div>
+                  <div class="aui-list-item-inner" ><input type="text" id="Account" placeholder="请输入账户名或手机号" ></div>
+               </li>
+               <li class="aui-list-item aui-list-item-middle" >
+                  <div class="aui-list-item-label-icon" ><i class="aui-iconfont aui-icon-lock" ></i></div>
+                  <div class="aui-list-item-inner" ><input type="password" id="Password" value="0000" placeholder="请输入密码" ></div>
+               </li>
+            </ul>
+            <div onclick="LoginApp()" class="aui-btn aui-btn-info aui-login-btn">登录</div>
+        </div>
+        <!--列表-->
+    <section >
+    <!--section -->
+  </body>
+</html>
+<!--总公司账户，上海区账户，门店1账户 ,seller99-->
