@@ -1,9 +1,0 @@
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\bin\Release\LeaRun.Util.Log.dll
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\bin\Release\LeaRun.Util.Log.pdb
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\bin\Release\log4net.dll
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\bin\Release\log4net.xml
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\obj\Release\LeaRun.Util.Log.csprojAssemblyReference.cache
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\obj\Release\LeaRun.Util.Log.csproj.CoreCompileInputs.cache
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\obj\Release\LeaRun.Util.Log.csproj.CopyComplete
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\obj\Release\LeaRun.Util.Log.dll
-E:\Job\Tengre\LeaRun.Framework V6.1\LeaRun.Util\LeaRun.Util.Log\obj\Release\LeaRun.Util.Log.pdb
